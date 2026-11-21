@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>☀️ Morning Check-In: Kamtu & Incoming Birthday Girl! ⏳👑</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: radial-gradient(circle at top, #1e1b4b, #090d16 75%);
+      color: #f8fafc;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 22px 14px;
+      overflow-x: hidden;
+    }
+
+    .card {
+      background: rgba(30, 41, 59, 0.92);
+      backdrop-filter: blur(16px);
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      border-radius: 24px;
+      max-width: 640px;
+      width: 100%;
+      padding: 32px 22px;
+      box-shadow: 0 25px 60px rgba(0, 0, 0, 0.65), 0 0 30px rgba(56, 189, 248, 0.2);
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .badge {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.45);
+      font-size: 0.82rem;
+      font-weight: 700;
+      padding: 6px 14px;
+      border-radius: 999px;
+      margin-bottom: 14px;
+      letter-spacing: 0.5px;
+    }
+
+    h1 {
+      font-size: 1.75rem;
+      margin-bottom: 10px;
+      color: #ffffff;
+      line-height: 1.25;
+    }
+
+    .subtitle {
+      font-size: 1.02rem;
+      line-height: 1.55;
+      color: #cbd5e1;
+      margin-bottom: 18px;
+    }
+
+    /* Live Countdown Clock */
+    .countdown-box {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .time-unit {
+      background: #0f172a;
+      border: 1px solid rgba(244, 114, 182, 0.4);
+      border-radius: 14px;
+      padding: 12px 8px;
+    }
+
+    .time-num {
+      font-size: 1.65rem;
+      font-weight: 800;
+      color: #f472b6;
+      font-family: "Courier New", Courier, monospace;
+    }
+
+    .time-label {
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: #94a3b8;
+      margin-top: 4px;
+      font-weight: 700;
+    }
+
+    .code-box {
+      background: #090d16;
+      border: 1px solid #334155;
+      border-radius: 14px;
+      padding: 14px;
+      font-family: "Courier New", Courier, monospace;
+      font-size: 0.84rem;
+      color: #38bdf8;
+      text-align: left;
+      margin-bottom: 20px;
+      line-height: 1.58;
+    }
+
+    .code-box span.warn {
+      color: #fbbf24;
+      font-weight: bold;
+    }
+
+    .code-box span.ok {
+      color: #4ade80;
+      font-weight: bold;
+    }
+
+    .btn {
+      background: linear-gradient(135deg, #38bdf8, #ec4899);
+      color: white;
+      border: none;
+      padding: 16px 24px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      border-radius: 14px;
+      cursor: pointer;
+      width: 100%;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 10px 25px rgba(236, 72, 153, 0.35);
+    }
+
+    .btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 30px rgba(236, 72, 153, 0.55);
+    }
+
+    #secret-note {
+      display: none;
+      text-align: left;
+      margin-top: 22px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(148, 163, 184, 0.25);
+      animation: fadeIn 0.7s ease forwards;
+    }
+
+    .gallery-title {
+      text-align: center;
+      font-size: 0.88rem;
+      text-transform: uppercase;
+      letter-spacing: 1.1px;
+      color: #7dd3fc;
+      font-weight: 700;
+      margin-bottom: 14px;
+    }
+
+    /* 4 Videos Grid */
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .video-frame {
+      position: relative;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 2px solid rgba(244, 114, 182, 0.45);
+      background: #090d16;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.45);
+    }
+
+    .video-frame video {
+      width: 100%;
+      aspect-ratio: 9 / 14;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
+
+    .media-label {
+      background: rgba(15, 23, 42, 0.96);
+      color: #f9a8d4;
+      font-size: 0.78rem;
+      font-weight: 700;
+      padding: 8px 10px;
+      text-align: center;
+      letter-spacing: 0.3px;
+    }
+
+    @media (max-width: 480px) {
+      .video-grid {
+        grid-template-columns: 1fr;
+      }
+      .video-frame video {
+        aspect-ratio: auto;
+        max-height: 420px;
+      }
+    }
+
+    #secret-note h2 {
+      color: #f472b6;
+      font-size: 1.42rem;
+      margin-bottom: 16px;
+      text-align: center;
+      line-height: 1.3;
+    }
+
+    .section-tag {
+      display: inline-block;
+      background: rgba(56, 189, 248, 0.16);
+      color: #7dd3fc;
+      font-size: 0.76rem;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 6px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+    }
+
+    #secret-note p {
+      color: #e2e8f0;
+      font-size: 1.02rem;
+      line-height: 1.76;
+      margin-bottom: 16px;
+    }
+
+    .highlight {
+      color: #fbcfe8;
+      font-weight: 700;
+    }
+
+    .agenda-box {
+      background: rgba(15, 23, 42, 0.82);
+      border-left: 4px solid #38bdf8;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 18px 0;
+      font-size: 0.96rem;
+      color: #f1f5f9;
+      line-height: 1.68;
+    }
+
+    .signature {
+      margin-top: 20px;
+      padding-top: 14px;
+      border-top: 1px dashed rgba(56, 189, 248, 0.35);
+      font-weight: 700;
+      color: #7dd3fc;
+      text-align: right;
+      font-size: 1.05rem;
+      line-height: 1.55;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <div class="badge">☀️ MORNING VIP CHECK-IN • MY FAVORITE KAMTU 👑</div>
+    <h1>Warning: Birthday Girl Loading! ⏳🎂</h1>
+    <p class="subtitle">
+      Good morning <strong>Beryl (my favorite Kamtu)</strong>! My computer science radar just woke up and detected massive <strong>Birthday Girl</strong> energy approaching tonight at <strong>12:00 AM</strong>... 🚨✨
+    </p>
+
+    <div class="countdown-box">
+      <div class="time-unit">
+        <div class="time-num" id="hours">00</div>
+        <div class="time-label">Hours</div>
+      </div>
+      <div class="time-unit">
+        <div class="time-num" id="minutes">00</div>
+        <div class="time-label">Minutes</div>
+      </div>
+      <div class="time-unit">
+        <div class="time-num" id="seconds">00</div>
+        <div class="time-label">Seconds</div>
+      </div>
+    </div>
+
+    <div class="code-box" id="terminal">
+      > TARGET_VIP: Beryl a.k.a. "Kamtu" 🔍❤<br>
+      > UPCOMING_TITLE: Incoming Birthday Girl 👑<br>
+      > AGE_WARNING: <span class="warn">Loading +1 Year Tonight 😂</span><br>
+      > ACTION: Tap below for your morning briefing...
+    </div>
+
+    <button class="btn" id="reveal-btn" onclick="openBriefing()">
+      Tap to Open Morning Briefing & 4 Videos 💌🎬✨
+    </button>
+
+    <div id="secret-note">
+      <div class="gallery-title">🎬 Kamtu's Pre-Birthday Video Vault (Tap to Play) 🎬</div>
+
+      <!-- 4 VIDEOS ONLY (Place video1.mp4, video2.mp4, video3.mp4, video4.mp4 in the same folder) -->
+      <div class="video-grid">
+        <div class="video-frame">
+          <video class="queen-video" controls playsinline preload="metadata">
+            <source src="video1.mp4" type="video/mp4" />
+          </video>
+          <div class="media-label">1. My Favorite Kamtu 👑✨</div>
+        </div>
+
+        <div class="video-frame">
+          <video class="queen-video" controls playsinline preload="metadata">
+            <source src="video2.mp4" type="video/mp4" />
+          </video>
+          <div class="media-label">2. Incoming Birthday Girl 🔥😍</div>
+        </div>
+
+        <div class="video-frame">
+          <video class="queen-video" controls playsinline preload="metadata">
+            <source src="video3.mp4" type="video/mp4" />
+          </video>
+          <div class="media-label">3. Aging Backwards Proof 😂💫</div>
+        </div>
+
+        <div class="video-frame">
+          <video class="queen-video" controls playsinline preload="metadata">
+            <source src="video4.mp4" type="video/mp4" />
+          </video>
+          <div class="media-label">4. Countdown to Queen Day 🎂🥂</div>
+        </div>
+      </div>
+
+      <h2>Good Morning, My Favorite Kamtu & Incoming Birthday Girl! ☀️🥰👑</h2>
+
+      <span class="section-tag">1. The Morning Check-In ☕😂</span>
+      <p>
+        <span class="highlight">Good morning my Kamtu! How was your night?</span> I hope you slept like royalty and didn't spend all night dreaming about how unfairly good-looking you are—or worse, stressing over anything! Let’s be real: our incoming <span class="highlight">Birthday Girl</span> needed every single second of that beauty sleep because tonight at midnight, the universe is officially upgrading you to a brand-new age (don't worry Kamtu, you still look 18 and dangerous 😂🔥).
+      </p>
+
+      <span class="section-tag">2. Something Cherishable From My Heart 🌹💫</span>
+      <p>
+        Before today even gets busy, I just wanted to pause and tell you something I genuinely cherish: <span class="highlight">having my Kamtu in my life makes every single morning feel like a win before the day even starts</span>. Out of all the algorithms, formulas, and lines of code in my head, you are easily my favorite thought when I wake up. Your smile, your vibe, and the peace you bring into my world are things I never take for granted, my sweet Birthday Girl. 🥰🔒💞
+      </p>
+
+      <span class="section-tag">3. What's Your Plan Today Before Tomorrow? 👀🗓️</span>
+      <p>
+        So tell me, Kamtu—<span class="highlight">what’s your master plan for today before tomorrow officially becomes all about the Birthday Girl?</span> Whatever you have lined up, I’ve gone ahead and drafted your official Pre-Birthday Schedule so you don't accidentally overwork yourself:
+      </p>
+
+      <div class="agenda-box">
+        <strong>📋 Official Pre-Birthday Agenda for Kamtu (Approved by Management):</strong><br>
+        • <strong>Morning:</strong> Smile, drink water, and accept that you are the finest incoming Birthday Girl awake right now. 😌✨<br>
+        • <strong>Afternoon:</strong> Zero stress, zero overthinking, and full relaxation—save your energy for tonight, Kamtu! 🔋👑<br>
+        • <strong>Evening:</strong> Keep your phone charged at 100% and stay ready... your personal computer scientist has something special cooking for the Birthday Girl at 12:00 AM! 🚀🎂🔥
+      </div>
+
+      <p>
+        Go conquer today with that radiant energy of yours, my Kamtu. Reply and tell me how you slept and what you're up to today—I’m cheering for my Birthday Girl from morning till midnight! 🥂🌸❤
+      </p>
+
+      <div class="signature">
+        — Always in your corner & counting down the hours for my Kamtu,<br>
+        Regan Anyanje 🤵‍♂️❤👑
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Automatically pause other videos when one starts playing so sound never overlaps
+    const allVideos = document.querySelectorAll(".queen-video");
+    allVideos.forEach((vid) => {
+      vid.addEventListener("play", () => {
+        allVideos.forEach((otherVid) => {
+          if (otherVid !== vid && !otherVid.paused) {
+            otherVid.pause();
+          }
+        });
+      });
+    });
+
+    function updateCountdown() {
+      const now = new Date();
+      const midnight = new Date();
+      midnight.setHours(24, 0, 0, 0);
+
+      const diff = midnight - now;
+
+      if (diff <= 0) {
+        document.getElementById("hours").innerText = "00";
+        document.getElementById("minutes").innerText = "00";
+        document.getElementById("seconds").innerText = "00";
+        return;
+      }
+
+      const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const m = Math.floor((diff / (1000 * 60)) % 60);
+      const s = Math.floor((diff / 1000) % 60);
+
+      document.getElementById("hours").innerText = String(h).padStart(2, "0");
+      document.getElementById("minutes").innerText = String(m).padStart(2, "0");
+      document.getElementById("seconds").innerText = String(s).padStart(2, "0");
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    function openBriefing() {
+      document.getElementById("secret-note").style.display = "block";
+      const btn = document.getElementById("reveal-btn");
+      btn.innerText = "Briefing Unlocked! Have an Amazing Day Kamtu ☀️❤";
+      btn.style.background = "linear-gradient(135deg, #10b981, #059669)";
+
+      document.getElementById("terminal").innerHTML = `
+        > STATUS: <span class="ok">KAMTU_MORNING_MODE_ACTIVE ✅</span><br>
+        > AGENDA: Relax today, celebrate Birthday Girl at midnight 👑<br>
+        > HEART_STATUS: 100% Locked on Kamtu 🔒💞
+      `;
+    }
+  </script>
+</body>
+</html>
